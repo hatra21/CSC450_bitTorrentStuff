@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class CORE {
     private static ArrayList<String> theConnectedClientIPs = new ArrayList<String>();
     private static ArrayList<PrintStream> theClientPrintStreams = new ArrayList<PrintStream>();
+    private static int currentClientPort = 3000;
 
     public static synchronized void addPrintStream(PrintStream ps) {
         CORE.theClientPrintStreams.add(ps);
@@ -14,6 +15,10 @@ public class CORE {
         for (PrintStream ps : CORE.theClientPrintStreams) {
             ps.println(s);
         }
+    }
+
+    public static synchronized int getNextClientPort() {
+        return CORE.currentClientPort++;
     }
 
     public static String getConnectedClientIPsString() {

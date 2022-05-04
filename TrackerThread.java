@@ -17,9 +17,13 @@ public class TrackerThread extends Thread {
             Scanner clientInput = new Scanner(this.theClient.getInputStream());
             PrintStream clientOutput = new PrintStream(this.theClient.getOutputStream());
             String newClientIP = clientInput.nextLine();
-            CORE.changeConnectedClientIPs(newClientIP, true);
+
+            String newClientIP_Port = newClientIP + ":" + CORE.getNextClientPort();
+
             String connectedClients = CORE.getConnectedClientIPsString();
             clientOutput.println(connectedClients);
+
+            CORE.changeConnectedClientIPs(newClientIP_Port, true);
 
             CORE.broadcastStringToClients(connectedClients);
             CORE.addPrintStream(clientOutput);
